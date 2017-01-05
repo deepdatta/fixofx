@@ -177,7 +177,7 @@ if options.filename:
             sys.stderr.write("Reading from '%s'\n." % options.filename)
 
         try:
-            srcfile = open(options.filename, 'rU')
+            srcfile = open(options.filename, 'rU', encoding="latin-1")
             rawtext = srcfile.read()
             srcfile.close()
         except Exception as detail:
@@ -200,7 +200,7 @@ else:
     if options.verbose:
         sys.stderr.write("Reading from standard input.\n")
 
-    stdin_universal = os.fdopen(os.dup(sys.stdin.fileno()), "rU")
+    stdin_universal = os.fdopen(os.dup(sys.stdin.fileno()), "rU", encoding="latin-1")
     rawtext = stdin_universal.read()
 
     if rawtext == "" or rawtext is None:
