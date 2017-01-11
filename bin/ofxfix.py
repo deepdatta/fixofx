@@ -25,6 +25,7 @@ import sys
 from fixofx.ofx import Response, FileTyper
 from fixofx.ofxtools.ofc_converter import OfcConverter
 from fixofx.ofxtools.qif_converter import QifConverter
+from fixofx.ofxtools.iif_converter import IifConverter
 
 
 def fixpath(filename):
@@ -107,6 +108,23 @@ def convert(filecontent, filetype, verbose=False, fid="UNKNOWN", org="UNKNOWN",
     elif filetype == "QIF":
         if verbose: sys.stderr.write("Beginning QIF conversion...\n")
         converter = QifConverter(text, fid=fid, org=org,
+                                 bankid=bankid, accttype=accttype,
+                                 acctid=acctid, balance=balance,
+                                 curdef=curdef, lang=lang, dayfirst=dayfirst,
+                                 debug=debug)
+
+        # This will throw a ParseException if it is unable to recognize
+        # the source format.
+        if verbose:
+            sys.stderr.write("Converting to OFX/1.02...\n\n%s\n\n" %
+                             converter.to_ofx102())
+            sys.stderr.write("Converting to OFX/2.0...\n")
+
+        return converter.to_xml()
+
+    elif filetype == "IIF":
+        if verbose: sys.stderr.write("Beginning IIF conversion...\n")
+        converter = IifConverter(text, fid=fid, org=org,
                                  bankid=bankid, accttype=accttype,
                                  acctid=acctid, balance=balance,
                                  curdef=curdef, lang=lang, dayfirst=dayfirst,

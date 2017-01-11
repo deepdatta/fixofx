@@ -43,7 +43,7 @@ class IifParser:
         "TRNSTYPE"  : "Type",
         "DATE"	    : "Date",
         "ACCNT"	    : "Accnt",
-        "NAME"	    : "Name",
+        "NAME"	    : "Payee",
         "CLASS"	    : "Category",
         "AMOUNT"    : "Amount",
         "DOCNUM"    : "Docnum",
