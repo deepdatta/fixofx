@@ -36,6 +36,9 @@ def dropQuotes(t):
         if (tok[0]=='"' and tok[-1]=='"') or (tok[0]=="'" and tok[-1]=="'"):
             return tok[1:-1]
 
+def remove_non_ascii(text):
+    return ''.join(c for c in text if c.isprintable())
+
 class IifParser:
     trns_items = {
         "TRNSID"    : "Number",
@@ -120,7 +123,7 @@ class IifParser:
             trn = trn_rec["TRN"]
             txn = {}
             for i, fld in enumerate(trn):
-                txn[IifParser.trns_items[trns_fields[i]]] = fld
+                txn[IifParser.trns_items[trns_fields[i]]] = remove_non_ascii(fld)
             txn_list.append(txn)
 
         return txn_list
