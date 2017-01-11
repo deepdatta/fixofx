@@ -177,10 +177,11 @@ class IifConverter:
     def _check_date_format(self, parsed_date, txn_date):
         # If we *ever* find a date that parses as dayfirst, treat
         # *all* transactions in this statement as dayfirst.
-        maybe_day = int(txn_date[:2])
-
-        if parsed_date is not None and parsed_date != "UNKNOWN" and (13 <= maybe_day <= 31):
-            self.dayfirst = True
+        slash_pos = re.search("\D", txn_date)
+        if slash_pos:
+            maybe_day = int(txn_date[:slash_pos.start()])
+            if parsed_date is not None and parsed_date != "UNKNOWN" and (13 <= maybe_day <= 31):
+                self.dayfirst = True
 
     #
     # Cleanup methods
