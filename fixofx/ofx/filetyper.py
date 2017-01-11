@@ -80,6 +80,9 @@ class FileTyper:
             # omit it.)
             return "QIF"
 
+        elif re.match("!(ACCNT|BUD|CLASS|CTYPE|CUST|EMP|ENDTRNS|HDR|INVITEM|invmemo|OTHERNAME|PAYMETH|SHIPMETH|SPL|TERMS|TIMEACT|TIMERHDR|TODO|TRNS|VEND|VTYPE)\t", self.text) != None:
+            return "IIF"
+
         else:
             # If more than 80% of the lines in the file have the same number of fields,
             # as determined by the CSV parser, and if there are more than 2 fields in
