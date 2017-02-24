@@ -24,13 +24,13 @@
 import sys
 
 def _ofxtoolsStartDebugAction( instring, loc, expr ):
-    sys.stderr.write("Match %s at loc %s (%d,%d)" %
+    sys.stderr.write("Match %s at loc %s (%d,%d)\n" %
                     (expr, loc,
                     instring.count("\n", 0, loc) + 1,
                     loc - instring.rfind("\n", 0, loc)))
 
 def _ofxtoolsSuccessDebugAction( instring, startloc, endloc, expr, toks ):
-    sys.stderr.write("Matched %s -> %s" % (expr, str(toks.asList())))
+    sys.stderr.write("Matched %s -> %s\n" % (expr, str(toks.asList())))
 
 def _ofxtoolsExceptionDebugAction( instring, loc, expr, exc ):
-    sys.stderr.write("Exception raised: %s" % exc)
+    sys.stderr.write("Exception raised: %s [%d]" % (exc, ord(instring[loc])))

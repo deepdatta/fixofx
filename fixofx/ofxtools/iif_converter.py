@@ -405,6 +405,9 @@ class IifConverter:
         elif "Type" not in txn and txn_sign == "credit":
             txn["Type"] = "CREDIT"
 
+        if (txn_memo != "UNKNOWN"):
+            txn["Payee"] += " (" + txn_memo +")"
+
     def _txn_sign(self, txn_amount):
         # Is this a credit or a debit?
         if txn_amount.startswith("-"):
